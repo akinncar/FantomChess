@@ -1,8 +1,11 @@
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+
 html,
 body {
   padding: 0;
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
+  font-size: 14px;
+  font-family: 'Press Start 2P', -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
     Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
 }
 
@@ -13,4 +16,69 @@ a {
 
 * {
   box-sizing: border-box;
+}
+
+:root {
+  --background: #red;
+}
+
+#app {
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  text-align: center;
+
+  background-image:
+        url("data:image/svg+xml;utf8,\<svg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 100 100'>\<rect fill='%2300000' width='50' height='50' x='0' y='0' />\<rect fill='%23000' width='50' height='50' x='50' y='50' />\<rect fill='%23ffffff00' width='50' height='50' x='50' y='0' />\<rect fill='%23ffffff00' width='50' height='50' x='0' y='50' />\</svg>"),
+        url(https://abrilveja.files.wordpress.com/2018/01/mallandro.png);
+  background-size: 80px, cover;
+
+  animation: gradient 15s ease infinite;
+}
+
+.form-container {
+  background-color: white;
+  border-radius: 20px;
+  width: 60vw;
+  padding: 20px;
+}
+
+.tittle{
+  font-weight: 700;
+  font-size: 20px;
+}
+
+.image1{
+  width: 20vw;
+  border-radius: 20px;
+}
+
+.colorGradient{
+  background: linear-gradient(90deg,red,blue);
+  -webkit-text-fill-color: transparent;
+  -webkit-background-clip: text;
+  display: inline;
+}
+
+@keyframes gradient {
+  0% {
+    background-color: red;
+  }
+  20% {
+    background-color: yellow;
+  }
+  40% {
+    background-color: green;
+  }
+  60% {
+    background-color: blue;
+  }
+  80% {
+    background-color: purple;
+  }
+  100% {
+    background-color: red;
+  }
 }
