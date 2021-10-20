@@ -11,36 +11,44 @@ contract FantomChess is ERC721, ERC721Enumerable, ERC721URIStorage, Ownable {
 
     Counters.Counter private _tokenIdCounter;
     address payable public depositAddress = payable(0xFc3778f4b877B25A2A6B501a6Bd987bB6B43F7e0);
-    uint256 public maxMintable = 500;
+    uint256 public maxMintable = 555;
+    string private _baseUrl;
 
-    constructor() ERC721("FantomChess", "CHESS") {}
-
-    function _baseURI() internal pure override returns (string memory) {
-        return "https://gateway.pinata.cloud/ipfs/";
+    constructor(string memory baseUrl) ERC721("FantomChess", "CHESS") {
+        _baseUrl = baseUrl;
     }
 
-    function setDepositAddress(address payable to) public onlyOwner {
-        depositAddress = to;
+    function _baseURI() internal view override returns (string memory) {
+        return _baseUrl;
     }
 
-    function claim(string memory metadataURI) public payable {
+    function claim() public payable {
         uint256 id = _tokenIdCounter.current();
-        uint256 price = 25 ether;
+        uint256 price = 20 ether;
 
         require(msg.value == price, "Invalid amount");
-        require(id < (maxMintable - 1), "No more Chess Games are available");
+        require(id < (maxMintable), "No more Chess Games are available");
 
         // transfer amount to owner
         depositAddress.transfer(price);
 
         _safeMint(msg.sender, id);
-        _setTokenURI(id, metadataURI);
-
         _tokenIdCounter.increment();
     }
 
+    function setTokenURI(uint256 tokenId, string memory newURI) public onlyOwner {
+        _setTokenURI(tokenId, newURI);
+    }
+    
+    function setBaseURI(string memory newBase) public onlyOwner {
+        _baseUrl = newBase;
+    }
+    
+    function setDepositAddress(address payable to) public onlyOwner {
+        depositAddress = to;
+    }
+    
     // The following functions are overrides required by Solidity.
-
     function _beforeTokenTransfer(address from, address to, uint256 tokenId)
         internal
         override(ERC721, ERC721Enumerable)
