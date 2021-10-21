@@ -1,12 +1,13 @@
-@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap");
 
 html,
 body {
   padding: 0;
   margin: 0;
   font-size: 14px;
-  font-family: 'Press Start 2P', -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
-    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+  font-family: "Press Start 2P", -apple-system, BlinkMacSystemFont, Segoe UI,
+    Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue,
+    sans-serif;
 }
 
 a {
@@ -30,12 +31,11 @@ a {
   flex-direction: column;
   text-align: center;
 
-  background-image:
-        url("data:image/svg+xml;utf8,\<svg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 100 100'>\<rect fill='%2300000' width='50' height='50' x='0' y='0' />\<rect fill='%23000' width='50' height='50' x='50' y='50' />\<rect fill='%23ffffff00' width='50' height='50' x='50' y='0' />\<rect fill='%23ffffff00' width='50' height='50' x='0' y='50' />\</svg>"),
-        url(https://abrilveja.files.wordpress.com/2018/01/mallandro.png);
+  background-image: url("data:image/svg+xml;utf8,\<svg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 100 100'>\<rect fill='%2300000' width='50' height='50' x='0' y='0' />\<rect fill='%23000' width='50' height='50' x='50' y='50' />\<rect fill='%23ffffff00' width='50' height='50' x='50' y='0' />\<rect fill='%23ffffff00' width='50' height='50' x='0' y='50' />\</svg>"),
+    url(https://abrilveja.files.wordpress.com/2018/01/mallandro.png);
   background-size: 80px, cover;
 
-  animation: gradient 15s ease infinite;
+  animation: gradient 30s ease infinite;
 }
 
 .form-container {
@@ -45,18 +45,18 @@ a {
   padding: 20px;
 }
 
-.tittle{
+.tittle {
   font-weight: 700;
   font-size: 20px;
 }
 
-.image1{
+.image1 {
   width: 20vw;
   border-radius: 20px;
 }
 
-.colorGradient{
-  background: linear-gradient(90deg,red,blue);
+.colorGradient {
+  background: linear-gradient(90deg, red, blue);
   -webkit-text-fill-color: transparent;
   -webkit-background-clip: text;
   display: inline;
@@ -81,4 +81,64 @@ a {
   100% {
     background-color: red;
   }
+}
+
+.header {
+  display: flex;
+  position: absolute;
+  top: 0%;
+  background-color: white;
+  width: 100vw;
+  justify-content: space-around;
+
+  padding: 10px;
+  align-items: center;
+  
+}
+
+.button {
+  height: 45px;
+  width: 180px;
+  font-weight: bold;
+  font-size: 12px;
+  color: rgb(255, 255, 255);
+  box-shadow: rgb(38 120 113 / 15%) 0px 4px 20px 5px;
+  border-radius: 20px;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  -webkit-box-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  justify-content: center;
+  margin-top: 0px;
+  margin-bottom: 0px;
+
+  animation: button 5s ease infinite;
+
+}
+
+@keyframes button {
+  0% {
+    background-color: green;
+  }
+  20% {
+    background-color: blue;
+  }
+  70% {
+    background-color: purple;
+  }
+  100% {
+    background-color: green;
+  }
+}
+
+.menus {
+  display: flex;
+
+}
+
+.menus div {
+  margin-left: 20px;
+  margin-right: 20px;
 }

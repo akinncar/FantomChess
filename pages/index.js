@@ -542,8 +542,12 @@ function Index() {
   let contractAddress = "0x3891a85bac070ef284ba59a039ab4dfc341c3649";
 
   useEffect(() => {
-    window.ethereum
-      ? ethereum
+    if(!window.ethereum){
+      alert("Please install MetaMask");
+      return;
+    }
+    
+    ethereum
         .request({ method: "eth_requestAccounts" })
         .then((accounts) => {
           setAddress(accounts[0]);
@@ -577,7 +581,7 @@ function Index() {
             .catch((err) => console.log(err));
         })
         .catch((err) => console.log(err))
-      : alert("Please install MetaMask");
+      
   }, []);
 
   function handleClaim() {
@@ -641,6 +645,20 @@ function Index() {
   return (
     <Fragment>
       <div class="geeks"></div>
+      <div class="header">
+        <div className="tittle colorGradient">Fantom Chess</div>
+
+        <div className='menus'>
+          <div>Claim</div>
+          <div>Attributes</div>
+          <div>My Games</div>
+        </div>
+
+        <div className='button'>
+          {address?.substring(0, 6)}...{address?.substring(address.length - 4, address.length)}
+        </div>
+      </div>
+
       <div id="app">
         <div className="form-container">
           <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', width: '100%' }}>
@@ -652,7 +670,6 @@ function Index() {
             </div>
 
             <div style={{ flex: 1 }}>
-              <div className="tittle colorGradient">Fantom Chess</div>
               <br />
               <br />
 
@@ -669,14 +686,11 @@ function Index() {
           </div>
 
           <br />
-
-          welcome {address}
-          <br />
           You own {balance} chess games
           <br />
           Avaliable {maxMintable - supply}/{maxMintable}
 
-          <button onClick={handleClaim} >Claim</button>
+          <button className='button' onClick={handleClaim} >Claim</button>
         </div>
       </div>
     </Fragment>
