@@ -8,11 +8,13 @@ import "@openzeppelin/contracts/utils/Counters.sol";
 
 contract FantomChess is ERC721, ERC721Enumerable, ERC721URIStorage, Ownable {
     using Counters for Counters.Counter;
+    using Strings for uint256;
 
     Counters.Counter private _tokenIdCounter;
     address payable public depositAddress = payable(0xFc3778f4b877B25A2A6B501a6Bd987bB6B43F7e0);
     uint256 public maxMintable = 555;
     string private _baseUrl;
+      string public baseExtension = ".json";
 
     constructor(string memory baseUrl) ERC721("FantomChess", "CHESS") {
         _baseUrl = baseUrl;
@@ -40,8 +42,12 @@ contract FantomChess is ERC721, ERC721Enumerable, ERC721URIStorage, Ownable {
         _setTokenURI(tokenId, newURI);
     }
     
-    function setBaseURL(string memory newBase) public onlyOwner {
+    function setBaseURI(string memory newBase) public onlyOwner {
         _baseUrl = newBase;
+    }
+    
+    function setBaseExtension(string memory _newBaseExtension) public onlyOwner {
+        baseExtension = _newBaseExtension;
     }
     
     function setDepositAddress(address payable to) public onlyOwner {
@@ -66,7 +72,15 @@ contract FantomChess is ERC721, ERC721Enumerable, ERC721URIStorage, Ownable {
         override(ERC721, ERC721URIStorage)
         returns (string memory)
     {
-        return super.tokenURI(tokenId);
+        require(
+          _exists(tokenId),
+          "ERC721Metadata: URI query for nonexistent token"
+        );
+    
+        string memory currentBaseURI = _baseURI();
+        return bytes(currentBaseURI).length > 0
+            ? string(abi.encodePacked(currentBaseURI, tokenId.toString(), baseExtension))
+            : "";
     }
 
     function supportsInterface(bytes4 interfaceId)
