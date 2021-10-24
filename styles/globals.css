@@ -8,8 +8,8 @@ body {
   font-family: "Press Start 2P", -apple-system, BlinkMacSystemFont, Segoe UI,
     Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue,
     sans-serif;
-  height: 100vh;
   width: 100vw;
+  overflow-y: hidden;
 }
 
 a {
@@ -22,7 +22,6 @@ a {
 }
 
 #app {
-  height: 100vh;
   width: 100vw;
   display: flex;
   align-items: center;
@@ -33,7 +32,7 @@ a {
   background-image: url("data:image/svg+xml;utf8,\<svg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 100 100'>\<rect fill='%2300000' width='50' height='50' x='0' y='0' />\<rect fill='%23000' width='50' height='50' x='50' y='50' />\<rect fill='%23ffffff00' width='50' height='50' x='50' y='0' />\<rect fill='%23ffffff00' width='50' height='50' x='0' y='50' />\</svg>"),
     url(https://abrilveja.files.wordpress.com/2018/01/mallandro.png);
   background-size: 80px, cover;
-
+  height: 100vh;
   animation: gradient 30s ease infinite;
 }
 
@@ -85,14 +84,11 @@ a {
 .header {
   z-index: 999999;
   display: flex;
-  position: absolute;
-  top: 0%;
   background-color: white;
   justify-content: space-around;
-
+  width: 100vw;
   padding: 10px;
   align-items: center;
-  
 }
 
 .button {
@@ -114,14 +110,14 @@ a {
   margin-bottom: 0px;
 
   animation: button 5s ease infinite;
-
 }
 
-.content-container{
-  display: 'flex';
-  align-items: 'center';
-  justify-content: 'center';
+.content-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   width: 100%;
+  flex-direction: row;
 }
 
 @keyframes button {
@@ -141,7 +137,6 @@ a {
 
 .menus {
   display: flex;
-
 }
 
 .menus div {
@@ -149,14 +144,46 @@ a {
   margin-right: 20px;
 }
 
-
-@media (max-width: 600px)
-{
+@media (max-width: 600px) {
   .header {
     flex-direction: column;
   }
 
-  .content-container{
+  .header div {
+    margin-top: 10px;
+  }
+
+  
+  .form-container {
+    margin-top: 20px;
+    width: 90vw;
+  }
+
+  .disable-on-600 {
+    display: none !important;
+  }
+
+  .image-frame {
+    height: 150px;
+    flex: auto !important
+  }
+
+  
+}
+
+@media (max-width: 400px) {
+  .disable-on-400 {
+    display: none !important;
+  }
+}
+
+@media (max-width: 1100px) {
+  .content-container {
     flex-direction: column;
+  }
+
+  html {
+    overflow-y: scroll;
+    overflow-x: auto;
   }
 }

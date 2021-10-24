@@ -9,6 +9,7 @@ function Index() {
   const [balance, setBalance] = useState(0);
   const [maxMintable, setMaxMintable] = useState(0);
   const [supply, setSupply] = useState(0);
+  const [isClaiming, setIsClaiming] = useState(false);
 
   let abi = [
     {
@@ -589,14 +590,12 @@ function Index() {
     console.log(tx);
   }
 
-  function loadData() {
-    contract.methods
+  async function loadData() {
+    let totalSupply = await contract.methods
       .totalSupply()
-      .call()
-      .then((supply) => {
-        setSupply(supply);
-      })
-      .catch((err) => console.log(err));
+      .call();
+
+    setSupply(totalSupply);
 
     contract.methods
       .maxMintable()
@@ -616,30 +615,25 @@ function Index() {
   }
 
   function claim() {
+    setIsClaiming(true);
     let _price = web3.utils.toWei("0.0001");
-    let encoded = contract.methods.claim().encodeABI();
 
-    let tx = {
-      from: address,
-      to: contractAddress,
-      data: encoded,
-      nonce: "0x00",
-      value: web3.utils.numberToHex(_price),
-    };
-
-    let txHash = ethereum
-      .request({
-        method: "eth_sendTransaction",
-        params: [tx],
+    contract.methods
+      .claim()
+      .send({
+        gasLimit: "285000",
+        to: contractAddress,
+        from: address,
+        value: _price,
       })
-      .then((hash) => {
-        alert("You can now view your transaction with hash: " + hash);
-        setTimeout(() => {
-          loadData();
-        }, 1000);
+      .once("error", (err) => {
+        console.log(err);
+        setIsClaiming(false);
       })
-      .catch((err) => console.log(err));
-    return txHash;
+      .then((receipt) => {
+        setIsClaiming(false);
+        loadData();
+      });
   }
 
   return (
@@ -650,7 +644,6 @@ function Index() {
 
         <div className='menus'>
           <div>Claim</div>
-          <div>Attributes</div>
           <div>My Games({balance})</div>
         </div>
 
@@ -662,11 +655,11 @@ function Index() {
       <div id="app">
         <div className="form-container">
           <div className='content-container'>
-            <div style={{ flex: 1 }}>
+            <div style={{ flex: 1 }} className='image-frame'>
               <Image src='/assets/game1.gif' alt='chess game' width='150' height='150' />
-              <Image src='/assets/game2.gif' alt='chess game' width='150' height='150' />
-              <Image src='/assets/game3.gif' alt='chess game' width='150' height='150' />
-              <Image src='/assets/game4.gif' alt='chess game' width='150' height='150' />
+              <Image src='/assets/game2.gif' alt='chess game' className='disable-on-400' width='150' height='150' />
+              <Image src='/assets/game3.gif' alt='chess game' className='disable-on-600' width='150' height='150' />
+              <Image src='/assets/game4.gif' alt='chess game' className='disable-on-600' width='150' height='150' />
             </div>
 
             <div style={{ flex: 1 }}>
@@ -689,7 +682,9 @@ function Index() {
 
           Avaliable {maxMintable - supply}/{maxMintable}
 
-          <button className='button' style={{marginLeft: 'auto', marginRight: 'auto', marginTop: 20}} onClick={handleClaim} >Claim</button>
+          <button className='button' style={{marginLeft: 'auto', marginRight: 'auto', marginTop: 20}} onClick={handleClaim}>
+            { isClaiming ? 'loading' : 'Claim' }
+          </button>
         </div>
       </div>
     </Fragment>
