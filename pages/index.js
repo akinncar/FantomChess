@@ -539,7 +539,7 @@ function Index() {
     }
   ];
 
-  let contractAddress = "0x3891a85bac070ef284ba59a039ab4dfc341c3649";
+  let contractAddress = "0x3b70e100170bdbee36f0957dbaf9115e404a08ac";
 
   useEffect(() => {
     if(!window.ethereum){
@@ -616,7 +616,7 @@ function Index() {
   }
 
   function claim() {
-    let _price = web3.utils.toWei("20");
+    let _price = web3.utils.toWei("0.0001");
     let encoded = contract.methods.claim().encodeABI();
 
     let tx = {
@@ -651,7 +651,7 @@ function Index() {
         <div className='menus'>
           <div>Claim</div>
           <div>Attributes</div>
-          <div>My Games</div>
+          <div>My Games({balance})</div>
         </div>
 
         <div className='button'>
@@ -661,12 +661,12 @@ function Index() {
 
       <div id="app">
         <div className="form-container">
-          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', width: '100%' }}>
+          <div className='content-container'>
             <div style={{ flex: 1 }}>
-              <Image src='/game1.gif' alt='chess game' width='150' height='150' />
-              <Image src='/game2.gif' alt='chess game' width='150' height='150' />
-              <Image src='/game3.gif' alt='chess game' width='150' height='150' />
-              <Image src='/game4.gif' alt='chess game' width='150' height='150' />
+              <Image src='/assets/game1.gif' alt='chess game' width='150' height='150' />
+              <Image src='/assets/game2.gif' alt='chess game' width='150' height='150' />
+              <Image src='/assets/game3.gif' alt='chess game' width='150' height='150' />
+              <Image src='/assets/game4.gif' alt='chess game' width='150' height='150' />
             </div>
 
             <div style={{ flex: 1 }}>
@@ -678,7 +678,7 @@ function Index() {
               <br />
 
               All games in the collection will have different attributes, in addition to <div className='colorGradient'>colors</div> and billions of possible <div className='colorGradient'>moves</div>,
-              games will also have random <div className='colorGradient'>sounds</div> and piece <div className='colorGradient'>sprites</div>.
+              games will also have random <div className='colorGradient'>sounds</div>.
 
               <br />
               <br />
@@ -686,11 +686,10 @@ function Index() {
           </div>
 
           <br />
-          You own {balance} chess games
-          <br />
+
           Avaliable {maxMintable - supply}/{maxMintable}
 
-          <button className='button' onClick={handleClaim} >Claim</button>
+          <button className='button' style={{marginLeft: 'auto', marginRight: 'auto', marginTop: 20}} onClick={handleClaim} >Claim</button>
         </div>
       </div>
     </Fragment>
