@@ -1,6 +1,7 @@
 import React, { useState, useEffect, Fragment } from "react";
 let Web3 = require("web3");
 import Image from 'next/image'
+import Swal from 'sweetalert2'
 
 function Index() {
   const [web3, setWeb3] = useState(null);
@@ -540,7 +541,7 @@ function Index() {
     }
   ];
 
-  let contractAddress = "0x3b70e100170bdbee36f0957dbaf9115e404a08ac";
+  let contractAddress = "0xeef169fc1642436e9b1f2806885b22dbd35c18d4";
 
   useEffect(() => {
     if(!window.ethereum){
@@ -616,7 +617,7 @@ function Index() {
 
   function claim() {
     setIsClaiming(true);
-    let _price = web3.utils.toWei("0.0001");
+    let _price = web3.utils.toWei("20");
 
     contract.methods
       .claim()
@@ -631,8 +632,18 @@ function Index() {
         setIsClaiming(false);
       })
       .then((receipt) => {
+        console.log(receipt);
         setIsClaiming(false);
         loadData();
+
+        const link = 'https://ftmscan.com/tx/' + receipt.transactionHash 
+
+        Swal.fire({
+          title: 'Success!',
+          html: 'You can check the transaction at <a href="' + link + '" style="color: blue">Ftmscan</a>',
+          icon: 'success',
+          confirmButtonText: 'Cool'
+        })
       });
   }
 
