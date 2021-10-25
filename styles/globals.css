@@ -112,6 +112,10 @@ a {
   animation: button 5s ease infinite;
 }
 
+.mr-10 {
+  margin-right: 10px !important;
+}
+
 .content-container {
   display: flex;
   align-items: center;

@@ -42,7 +42,7 @@ contract FantomChess is ERC721, ERC721Enumerable, ERC721URIStorage, Ownable {
         _setTokenURI(tokenId, newURI);
     }
     
-    function setBaseURI(string memory newBase) public onlyOwner {
+    function setBaseURL(string memory newBase) public onlyOwner {
         _baseUrl = newBase;
     }
     

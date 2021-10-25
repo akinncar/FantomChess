@@ -11,6 +11,8 @@ function Index() {
   const [maxMintable, setMaxMintable] = useState(0);
   const [supply, setSupply] = useState(0);
   const [isClaiming, setIsClaiming] = useState(false);
+  const [isReady, setIsReady] = useState(true);
+
 
   let abi = [
     {
@@ -541,11 +543,12 @@ function Index() {
     }
   ];
 
-  let contractAddress = "0xeef169fc1642436e9b1f2806885b22dbd35c18d4";
+  let contractAddress = "0x46350eda48b3aafc4c403ff02c024e76ae22e803";
 
   useEffect(() => {
     if(!window.ethereum){
       alert("Please install MetaMask");
+      setIsReady(false);
       return;
     }
     
@@ -564,7 +567,11 @@ function Index() {
             .then((supply) => {
               setSupply(supply);
             })
-            .catch((err) => console.log(err));
+            .catch((err) => {
+              setIsReady(false);
+              alert(err);
+              console.log(err)
+            });
 
           c.methods
             .maxMintable()
@@ -582,8 +589,11 @@ function Index() {
             })
             .catch((err) => console.log(err));
         })
-        .catch((err) => console.log(err))
-      
+        .catch((err) => {
+          isReady(false);
+          alert(err);
+          console.log(err)
+        })      
   }, []);
 
   function handleClaim() {
@@ -640,7 +650,7 @@ function Index() {
 
         Swal.fire({
           title: 'Success!',
-          html: 'You can check the transaction at <a href="' + link + '" style="color: blue">Ftmscan</a>',
+          html: 'You can check the transaction at <a href="' + link + '" target="_blank" style="color: blue">Ftmscan</a>',
           icon: 'success',
           confirmButtonText: 'Cool'
         })
@@ -654,8 +664,7 @@ function Index() {
         <div className="tittle colorGradient">Fantom Chess</div>
 
         <div className='menus'>
-          <div>Claim</div>
-          <div>My Games({balance})</div>
+          <div>You own ({balance}) games</div>
         </div>
 
         <div className='button'>
@@ -686,6 +695,14 @@ function Index() {
 
               <br />
               <br />
+
+              <a href='https://discord.gg/cDh6gbn59A' className='mr-10' target='_blank'>
+                <Image src='/assets/Discord-logo-Black.svg' alt='chess game' width='20' height='20' />
+              </a>
+
+              <a href='https://twitter.com/FantomChess' target='_blank'>
+                <Image src='/assets/Twitter-Logo-black.svg' alt='chess game' width='20' height='20' />
+              </a>
             </div>
           </div>
 
@@ -693,8 +710,8 @@ function Index() {
 
           Avaliable {maxMintable - supply}/{maxMintable}
 
-          <button className='button' style={{marginLeft: 'auto', marginRight: 'auto', marginTop: 20}} onClick={handleClaim}>
-            { isClaiming ? 'loading' : 'Claim' }
+          <button className='button' disabled={!isReady} style={{marginLeft: 'auto', marginRight: 'auto', marginTop: 20}} onClick={handleClaim}>
+            { isClaiming ? 'loading...' : 'Claim' }
           </button>
         </div>
       </div>
