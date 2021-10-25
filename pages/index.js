@@ -697,11 +697,11 @@ function Index() {
               <br />
 
               <a href='https://discord.gg/cDh6gbn59A' className='mr-10' target='_blank'>
-                <Image src='/assets/Discord-logo-Black.svg' alt='chess game' width='20' height='20' />
+                <Image src='/assets/discord.svg' alt='chess game' width='20' height='20' />
               </a>
 
               <a href='https://twitter.com/FantomChess' target='_blank'>
-                <Image src='/assets/Twitter-Logo-black.svg' alt='chess game' width='20' height='20' />
+                <Image src='/assets/twitter.svg' alt='chess game' width='20' height='20' />
               </a>
             </div>
           </div>
