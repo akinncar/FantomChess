@@ -710,9 +710,9 @@ function Index() {
 
           Avaliable {maxMintable - supply}/{maxMintable}
 
-          <button className='button' disabled={!isReady} style={{marginLeft: 'auto', marginRight: 'auto', marginTop: 20}} onClick={handleClaim}>
+          {/* <button className='button' disabled={!isReady} style={{marginLeft: 'auto', marginRight: 'auto', marginTop: 20}} onClick={handleClaim}>
             { isClaiming ? 'loading...' : 'Claim' }
-          </button>
+          </button> */}
         </div>
       </div>
     </Fragment>
