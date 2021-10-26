@@ -108,9 +108,10 @@ a {
   justify-content: center;
   margin-top: 0px;
   margin-bottom: 0px;
-
+  font-family: 'PRESS START 2P';
   animation: button 5s ease infinite;
 }
+
 
 .mr-10 {
   margin-right: 10px !important;
@@ -158,6 +159,8 @@ a {
   }
 
   
+
+  
   .form-container {
     margin-top: 20px;
     width: 90vw;
@@ -172,6 +175,9 @@ a {
     flex: auto !important
   }
 
+  .button {
+    margin-top:  10px;
+  }
   
 }
 
@@ -189,5 +195,10 @@ a {
   html {
     overflow-y: scroll;
     overflow-x: auto;
+  }
+
+  #app{
+    height: 125vh;
+
   }
 }

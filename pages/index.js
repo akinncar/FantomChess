@@ -11,7 +11,7 @@ function Index() {
   const [maxMintable, setMaxMintable] = useState(0);
   const [supply, setSupply] = useState(0);
   const [isClaiming, setIsClaiming] = useState(false);
-  const [isReady, setIsReady] = useState(true);
+  const [isReady, setIsReady] = useState(false);
 
 
   let abi = [
@@ -546,6 +546,10 @@ function Index() {
   let contractAddress = "0x46350eda48b3aafc4c403ff02c024e76ae22e803";
 
   useEffect(() => {
+    //connectWallet();
+  }, []);
+
+  function connectWallet(){
     if(!window.ethereum){
       alert("Please install MetaMask");
       setIsReady(false);
@@ -565,11 +569,22 @@ function Index() {
             .totalSupply()
             .call()
             .then((supply) => {
+              setIsReady(true);
               setSupply(supply);
             })
             .catch((err) => {
               setIsReady(false);
-              alert(err);
+              setAddress(null);
+              setSupply(0);
+              setBalance(0);
+              setMaxMintable(0);
+              setContract(null);
+              Swal.fire({
+                title: 'Error!',
+                html: 'Check if you are using the Fantom Network',
+                icon: 'error',
+                confirmButtonText: 'Ok'
+              })
               console.log(err)
             });
 
@@ -591,10 +606,15 @@ function Index() {
         })
         .catch((err) => {
           isReady(false);
-          alert(err);
+          Swal.fire({
+            title: 'Error!',
+            html: 'Check if you are using the Fantom Network',
+            icon: 'error',
+            confirmButtonText: 'Ok'
+          })
           console.log(err)
         })      
-  }, []);
+  }
 
   function handleClaim() {
     let tx = claim();
@@ -667,9 +687,9 @@ function Index() {
           <div>You own ({balance}) games</div>
         </div>
 
-        <div className='button'>
-          {address?.substring(0, 6)}...{address?.substring(address.length - 4, address.length)}
-        </div>
+        <button className='button' onClick={connectWallet}>
+          {isReady ? address?.substring(0, 6) + "..." + address?.substring(address.length - 4, address.length) : "Connect" } {}
+        </button>
       </div>
 
       <div id="app">
@@ -696,6 +716,16 @@ function Index() {
               <br />
               <br />
 
+              <div className='colorGradient'>55</div> games in the collection will be based on <div className='colorGradient'>great games</div> from the history of <div className='colorGradient'>chess</div>.
+
+              <br />
+              <br />
+
+              Price: <div className='colorGradient'>20 FTM</div> each
+
+              <br />
+              <br />
+
               <a href='https://discord.gg/cDh6gbn59A' className='mr-10' target='_blank'>
                 <Image src='/assets/discord.svg' alt='chess game' width='20' height='20' />
               </a>
@@ -710,9 +740,11 @@ function Index() {
 
           Avaliable {maxMintable - supply}/{maxMintable}
 
-          {/* <button className='button' disabled={!isReady} style={{marginLeft: 'auto', marginRight: 'auto', marginTop: 20}} onClick={handleClaim}>
-            { isClaiming ? 'loading...' : 'Claim' }
-          </button> */}
+          {/* {isReady && <button className='button' style={{marginLeft: 'auto', marginRight: 'auto', marginTop: 20}} onClick={handleClaim}>
+            { isClaiming ? 'loading...' : 'Claim (20 FTM)' }
+          </button>}
+
+          {!isReady && <div className='colorGradient'><br></br>Connect your wallet to claim</div>} */}
         </div>
       </div>
     </Fragment>
