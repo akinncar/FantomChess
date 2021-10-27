@@ -546,7 +546,7 @@ function Index() {
   let contractAddress = "0x46350eda48b3aafc4c403ff02c024e76ae22e803";
 
   useEffect(() => {
-    //connectWallet();
+    connectWallet();
   }, []);
 
   function connectWallet(){
@@ -605,7 +605,7 @@ function Index() {
             .catch((err) => console.log(err));
         })
         .catch((err) => {
-          isReady(false);
+          setIsReady(false);
           Swal.fire({
             title: 'Error!',
             html: 'Check if you are using the Fantom Network',
@@ -679,8 +679,8 @@ function Index() {
 
   return (
     <Fragment>
-      <div class="geeks"></div>
-      <div class="header">
+      <div className="geeks"></div>
+      <div className="header">
         <div className="tittle colorGradient">Fantom Chess</div>
 
         <div className='menus'>
@@ -730,8 +730,16 @@ function Index() {
                 <Image src='/assets/discord.svg' alt='chess game' width='20' height='20' />
               </a>
 
-              <a href='https://twitter.com/FantomChess' target='_blank'>
+              <a href='https://twitter.com/FantomChess' target='_blank' className='mr-10'>
                 <Image src='/assets/twitter.svg' alt='chess game' width='20' height='20' />
+              </a>
+
+              <a href='https://ftmscan.com/address/0x46350eda48b3aafc4c403ff02c024e76ae22e803' className='mr-10' target='_blank'>
+                <Image src='/assets/fantom.svg' alt='chess game' width='20' height='20' />
+              </a>
+
+              <a href='https://paintswap.finance/marketplace/collections/0x46350eda48b3aafc4c403ff02c024e76ae22e803' target='_blank'>
+                <Image src='/assets/paint.png' alt='chess game' width='20' height='20' />
               </a>
             </div>
           </div>
@@ -740,11 +748,11 @@ function Index() {
 
           Avaliable {maxMintable - supply}/{maxMintable}
 
-          {/* {isReady && <button className='button' style={{marginLeft: 'auto', marginRight: 'auto', marginTop: 20}} onClick={handleClaim}>
+           {isReady && <button className='button' style={{marginLeft: 'auto', marginRight: 'auto', marginTop: 20}} onClick={handleClaim}>
             { isClaiming ? 'loading...' : 'Claim (20 FTM)' }
           </button>}
 
-          {!isReady && <div className='colorGradient'><br></br>Connect your wallet to claim</div>} */}
+          {!isReady && <div className='colorGradient'><br></br>Connect your wallet to claim</div>}
         </div>
       </div>
     </Fragment>
