@@ -746,7 +746,7 @@ function Index() {
 
           <br />
 
-          Avaliable {maxMintable - supply}/{maxMintable}
+          Available {maxMintable - supply}/{maxMintable}
 
            {isReady && <button className='button' style={{marginLeft: 'auto', marginRight: 'auto', marginTop: 20}} onClick={handleClaim}>
             { isClaiming ? 'loading...' : 'Claim (20 FTM)' }
